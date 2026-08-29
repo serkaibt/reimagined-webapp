@@ -1,0 +1,471 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ACT Routine">
+    <title>35-40 Min ACT Shoulder Routine | Overhang Climbing</title>
+    
+    <!-- PWA Web Manifest Embedded -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"ACT Shoulder Routine","short_name":"ACT Routine","start_url":".","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧗</text></svg>","sizes":"192x192 512x512","type":"image/svg+xml"}]}'>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧗</text></svg>">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #f97316;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --timer-bg: #0284c7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p.subtitle {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Timer Widget */
+        .timer-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: monospace;
+            color: var(--text-main);
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        .btn-primary { background-color: var(--accent); color: #fff; }
+        .btn-secondary { background-color: var(--timer-bg); color: #fff; }
+        .btn-reset { background-color: var(--border); color: var(--text-main); }
+
+        /* Block & Exercise Cards */
+        .block-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 8px;
+            margin-bottom: 4px;
+            border-left: 4px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .exercise-name {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .badge {
+            background-color: var(--border);
+            color: var(--text-main);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .card-body {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .focus-text {
+            color: var(--text-main);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* Checkbox Styling for Set Tracking */
+        .tracker {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .tracker label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .tracker input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ACT Overhead & Shoulder Routine</h1>
+        <p class="subtitle">35–40 Min Standalone Conditioning for Steep Climbing</p>
+    </header>
+
+    <!-- Rest Timer Widget -->
+    <div class="timer-card">
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Rest Interval Timer</div>
+        <div class="timer-display" id="timer">00:45</div>
+        <div class="timer-controls">
+            <button class="btn btn-secondary" onclick="setTimer(30)">30s</button>
+            <button class="btn btn-secondary" onclick="setTimer(45)">45s</button>
+            <button class="btn btn-secondary" onclick="setTimer(60)">60s</button>
+        </div>
+        <div class="timer-controls" style="margin-top: 4px;">
+            <button class="btn btn-primary" onclick="startTimer()">Start</button>
+            <button class="btn btn-reset" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+
+    <!-- Warm-Up Block -->
+    <div class="block-title">Warm-Up & Mobilisation (~7 Min)</div>
+    
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">Chest Opener</span>
+            <span class="badge">2 Sets × 60s Hold</span>
+        </div>
+        <div class="card-body">
+            Lie on a foam roller along your spine. Extend arms out to the side and let them hang to stretch the chest and front shoulder joint.
+            <div class="focus-text">Focus: Thoracic spine extension and opening up overhead range.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">Wall Slides (with ACT Band)</span>
+            <span class="badge">2 Sets × 10–12 Reps</span>
+        </div>
+        <div class="card-body">
+            Stand facing a wall, forearms on wall pushing outward against band. Slide up and down keeping hands, elbows, and shoulders aligned.
+            <div class="focus-text">Focus: Depress shoulders down away from ears; keep lower traps engaged.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+        </div>
+    </div>
+
+    <!-- Block A -->
+    <div class="block-title">Block A: Primary Strength (~12 Min)</div>
+    
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">A1: ACT Pull-ups</span>
+            <span class="badge">3 Sets × 5–8 Reps</span>
+        </div>
+        <div class="card-body">
+            Loop band around forearms below elbows. Pull up while actively rotating elbows slightly inward under band tension.
+            <div class="focus-text">Focus: Prevents outward "chicken-winging" elbow flare on hard pulls.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+            <input type="checkbox"> 3
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">A2: Sword Pull</span>
+            <span class="badge">3 Sets × 8–10 Reps/side</span>
+        </div>
+        <div class="card-body">
+            Low band anchor. Pull diagonally upward leading with elbow, then extend forearm overhead in one fluid motion.
+            <div class="focus-text">Focus: Dynamic rotator cuff stability along an overhead pulling line.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+            <input type="checkbox"> 3
+        </div>
+    </div>
+
+    <!-- Block B -->
+    <div class="block-title">Block B: Overhead Control & Anti-Rotation (~12 Min)</div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">B1: Upside-Down Kettlebells</span>
+            <span class="badge">3 Sets × 5 Reps (5s Hold)</span>
+        </div>
+        <div class="card-body">
+            Hold kettlebell bottom-up in a half-kneeling stance. Press overhead with a neutral, rigid wrist and hold.
+            <div class="focus-text">Focus: Deep shoulder socket stability and wrist alignment.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+            <input type="checkbox"> 3
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">B2: Power Plank</span>
+            <span class="badge">3 Sets × 8–10 Pulls/side</span>
+        </div>
+        <div class="card-body">
+            Forearm plank facing low band anchor. Pull band with one arm while keeping hips perfectly level to floor.
+            <div class="focus-text">Focus: Links arm pull directly to core rigidity so feet don't blow off footholds.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+            <input type="checkbox"> 3
+        </div>
+    </div>
+
+    <!-- Block C -->
+    <div class="block-title">Block C: Stabilization & Forearm Health (~7 Min)</div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">C1: Rotation Curls</span>
+            <span class="badge">2 Sets × 8–10 Reps/arm</span>
+        </div>
+        <div class="card-body">
+            Extend arm upward/backward with max external rotation using light weight (&lt;4kg), returning via curl motion.
+            <div class="focus-text">Focus: Controlled rotator cuff movement through full overhead path.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">C2: Core Pendulums</span>
+            <span class="badge">2 Sets × 8 Tilts/side</span>
+        </div>
+        <div class="card-body">
+            On back, legs at 90°, arms pointing up against band tension. Tilt legs side to side without losing upper tension.
+            <div class="focus-text">Focus: Anti-rotational trunk stability when cutting feet.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="exercise-name">C3: Finger Extensors with ACT Band</span>
+            <span class="badge">2 Sets × 15 Reps</span>
+        </div>
+        <div class="card-body">
+            Extend and spread fingers against resistance band placed across fingertips.
+            <div class="focus-text">Focus: Balances forearm extensors and flexors to protect elbows.</div>
+        </div>
+        <div class="tracker">
+            <label>Sets:</label>
+            <input type="checkbox"> 1
+            <input type="checkbox"> 2
+        </div>
+    </div>
+
+    <footer>
+        ACT Conditioning Routine for Overhang Climbing • Progressive Web App
+    </footer>
+</div>
+
+<script>
+    // Audio Chime Synthesizer via Web Audio API
+    function playChime() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime); // A5 note
+            osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.6);
+            
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
+            
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.start();
+            osc.stop(ctx.currentTime + 0.6);
+        } catch(e) {
+            console.log("Audio play blocked or unsupported");
+        }
+    }
+
+    // Rest Timer Logic
+    let timerInterval = null;
+    let timeRemaining = 45;
+    let defaultTime = 45;
+
+    function updateDisplay() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById('timer').textContent = 
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function setTimer(seconds) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        defaultTime = seconds;
+        timeRemaining = seconds;
+        updateDisplay();
+    }
+
+    function startTimer() {
+        if (timerInterval) return;
+        
+        timerInterval = setInterval(() => {
+            if (timeRemaining > 0) {
+                timeRemaining--;
+                updateDisplay();
+            } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                playChime();
+            }
+        }, 1000);
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timeRemaining = defaultTime;
+        updateDisplay();
+    }
+
+    updateDisplay();
+
+    // Inline Service Worker Registration for Complete Offline PWA Functionality
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            const CACHE_NAME = 'act-pwa-v1';
+            self.addEventListener('install', (e) => {
+                e.waitUntil(
+                    caches.open(CACHE_NAME).then((cache) => cache.addAll(['./']))
+                );
+            });
+            self.addEventListener('fetch', (e) => {
+                e.respondWith(
+                    caches.match(e.request).then((res) => res || fetch(e.request))
+                );
+            });
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+</script>
+
+</body>
+</html>
